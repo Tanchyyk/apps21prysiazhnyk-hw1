@@ -5,6 +5,8 @@ import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
     private double[] temperatureSeries;
+    public double minTemp = -273;
+    public double maxTemp = 273;
 
     public TemperatureSeriesAnalysis() {
 
@@ -19,9 +21,8 @@ public class TemperatureSeriesAnalysis {
     }
 
     public boolean validateTemps(double[] temperatureSeries) {
-        double minVal = -273.0;
         for (double temperature : temperatureSeries) {
-            if (Double.compare(temperature, minVal) == -1) {
+            if (Double.compare(temperature, minTemp) == -1) {
                 return false;
             }
         }
@@ -59,13 +60,11 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double min() {
-        double minVal = -273.0;
-        return findTempClosestToValue(minVal);
+        return findTempClosestToValue(minTemp);
     }
 
     public double max() {
-        double maxVal = 273;
-        return findTempClosestToValue(maxVal);
+        return findTempClosestToValue(maxTemp);
     }
 
     public double findTempClosestToZero() {
