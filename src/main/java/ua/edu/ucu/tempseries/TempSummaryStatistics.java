@@ -15,11 +15,11 @@ public class TempSummaryStatistics {
 
     @Override
     public String toString() {
-        return "TempSummaryStatistics{" +
-                "averageTemp=" + averageTemp +
-                ", stdOfTemps=" + stdOfTemps +
-                ", minTemp=" + minTemp +
-                ", maxTemp=" + maxTemp +
-                '}';
+        return "TempSummaryStatistics{"
+                + "averageTemp=" + averageTemp
+                + ", stdOfTemps=" + stdOfTemps
+                + ", minTemp=" + minTemp
+                + ", maxTemp=" + maxTemp
+                + '}';
     }
 }

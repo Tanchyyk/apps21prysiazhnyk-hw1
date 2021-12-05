@@ -10,9 +10,18 @@ public class TemperatureSeriesAnalysis {
 
     }
 
+    public TemperatureSeriesAnalysis(double[] temperatureSeries) {
+        if (!checkLength(temperatureSeries) || !validateTemps(temperatureSeries)) {
+            throw new InputMismatchException();
+        } else {
+            this.temperatureSeries = Arrays.copyOf(temperatureSeries, temperatureSeries.length);
+        }
+    }
+
     public boolean validateTemps(double[] temperatureSeries) {
-        for (double temperature: temperatureSeries) {
-            if (Double.compare(temperature, -273.0) == -1) {
+        double minVal = -273.0;
+        for (double temperature : temperatureSeries) {
+            if (Double.compare(temperature, minVal) == -1) {
                 return false;
             }
         }
@@ -23,16 +32,8 @@ public class TemperatureSeriesAnalysis {
         return temperatureSeries.length != 0;
     }
 
-    public TemperatureSeriesAnalysis(double[] temperatureSeries) {
-        if (!checkLength(temperatureSeries) || !validateTemps(temperatureSeries)) {
-            throw new InputMismatchException();
-        } else {
-            this.temperatureSeries = Arrays.copyOf(temperatureSeries, temperatureSeries.length);
-        }
-    }
-
     public double average() {
-        if (!checkLength(temperatureSeries)){
+        if (!checkLength(temperatureSeries)) {
             throw new IllegalArgumentException();
         }
 
@@ -44,13 +45,13 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double deviation() {
-        if (!checkLength(temperatureSeries)){
+        if (!checkLength(temperatureSeries)) {
             throw new IllegalArgumentException();
         }
 
         double std = 0;
 
-        for (double temperature: temperatureSeries){
+        for (double temperature : temperatureSeries) {
             std += Math.pow(Math.abs(temperature - average()), 2);
         }
 
@@ -58,11 +59,13 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double min() {
-        return findTempClosestToValue(-273);
+        double minVal = -273.0;
+        return findTempClosestToValue(-minVal);
     }
 
     public double max() {
-        return findTempClosestToValue(273);
+        double maxVal = 273;
+        return findTempClosestToValue(maxVal);
     }
 
     public double findTempClosestToZero() {
@@ -70,15 +73,15 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double findTempClosestToValue(double tempValue) {
-        if (!checkLength(temperatureSeries)){
+        if (!checkLength(temperatureSeries)) {
             throw new IllegalArgumentException();
         }
 
-        double MinDiff = Math.abs(temperatureSeries[0] - tempValue);
+        double minDiff = Math.abs(temperatureSeries[0] - tempValue);
         double closest = temperatureSeries[0];
         for (int i = 1; i < temperatureSeries.length; i++) {
-            if (Math.abs(temperatureSeries[i] - tempValue) < MinDiff) {
-                MinDiff = Math.abs(temperatureSeries[i] - tempValue);
+            if (Math.abs(temperatureSeries[i] - tempValue) < minDiff) {
+                minDiff = Math.abs(temperatureSeries[i] - tempValue);
                 closest = temperatureSeries[i];
             }
         }
@@ -89,7 +92,7 @@ public class TemperatureSeriesAnalysis {
         double[] tempLessThenArr = new double[temperatureSeries.length];
         int currIdx = 0;
 
-        for (double temperature: temperatureSeries) {
+        for (double temperature : temperatureSeries) {
             if (temperature < tempValue) {
                 tempLessThenArr[currIdx] = temperature;
                 currIdx++;
@@ -102,7 +105,7 @@ public class TemperatureSeriesAnalysis {
         double[] tempLargeThenArr = new double[temperatureSeries.length];
         int currIdx = 0;
 
-        for (double temperature: temperatureSeries) {
+        for (double temperature : temperatureSeries) {
             if (temperature > tempValue) {
                 tempLargeThenArr[currIdx] = temperature;
                 currIdx++;
@@ -112,7 +115,7 @@ public class TemperatureSeriesAnalysis {
     }
 
     public TempSummaryStatistics summaryStatistics() {
-        if (!checkLength(temperatureSeries)){
+        if (!checkLength(temperatureSeries)) {
             throw new IllegalArgumentException();
         }
 
@@ -121,15 +124,16 @@ public class TemperatureSeriesAnalysis {
 
     public int exactLength() {
         int counter = 0;
-        for (double temp: temperatureSeries) {
-            if (temp != 0.0)
-            counter += 1;
+        for (double temp : temperatureSeries) {
+            if (temp != 0.0) {
+                counter += 1;
+            }
         }
         return counter;
     }
 
     public int addTemps(double... temps) {
-        for (double temperature: temps) {
+        for (double temperature : temps) {
             if (exactLength() == temperatureSeries.length) {
                 temperatureSeries = Arrays.copyOf(temperatureSeries, temperatureSeries.length * 2);
             }
@@ -137,7 +141,7 @@ public class TemperatureSeriesAnalysis {
         }
 
         double sum = 0;
-        for (double temp: temperatureSeries) {
+        for (double temp : temperatureSeries) {
             sum += temp;
         }
 
