@@ -60,7 +60,7 @@ public class TemperatureSeriesAnalysis {
 
     public double min() {
         double minVal = -273.0;
-        return findTempClosestToValue(-minVal);
+        return findTempClosestToValue(minVal);
     }
 
     public double max() {
