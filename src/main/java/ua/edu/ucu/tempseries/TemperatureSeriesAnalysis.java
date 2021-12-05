@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
+    private double minTemp = -273.0;
+    private double maxTemp = 273.0;
     private double[] temperatureSeries;
-    public double minTemp = -273;
-    public double maxTemp = 273;
 
     public TemperatureSeriesAnalysis() {
 
@@ -20,9 +20,17 @@ public class TemperatureSeriesAnalysis {
         }
     }
 
+    public double getMinTemp() {
+        return minTemp;
+    }
+
+    public double getMaxTemp() {
+        return maxTemp;
+    }
+
     public boolean validateTemps(double[] temperatureSeries) {
         for (double temperature : temperatureSeries) {
-            if (Double.compare(temperature, minTemp) == -1) {
+            if (Double.compare(temperature, getMinTemp()) == -1) {
                 return false;
             }
         }
@@ -60,11 +68,11 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double min() {
-        return findTempClosestToValue(minTemp);
+        return findTempClosestToValue(getMinTemp());
     }
 
     public double max() {
-        return findTempClosestToValue(maxTemp);
+        return findTempClosestToValue(getMaxTemp());
     }
 
     public double findTempClosestToZero() {
